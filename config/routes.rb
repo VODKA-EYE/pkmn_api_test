@@ -10,8 +10,10 @@ Rails.application.routes.draw do
   get 'pokemon/:id', to: 'pokemon#show'
   post 'pokemon/:id/like', to: 'pokemon#like'
   delete 'pokemon/:id/like', to: 'pokemon#dislike'
+  get 'pokemon/:id/rating', to: 'rating#show'
 
   delete 'users/log_out', to: 'users#log_out'
   get 'user', to: 'users#user_info'
 
+  get 'rating', to: 'rating#top'
 end

@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   # root "articles#index"
   get 'pokemon', to: 'pokemon#all'
   get 'pokemon/:id', to: 'pokemon#show'
+  post 'pokemon/:id/like', to: 'pokemon#like'
+  delete 'pokemon/:id/like', to: 'pokemon#dislike'
+
   delete 'users/log_out', to: 'users#log_out'
   get 'user', to: 'users#user_info'
+
 end

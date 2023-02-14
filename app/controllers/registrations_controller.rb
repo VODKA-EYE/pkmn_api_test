@@ -9,7 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
       if user.save
         render json: { message: 'Nakonec zaregan' }
       else
-        render json: { error: true, message: user.errors.full_messages.to_s }
+        render json: { error: true, message: user.errors.full_messages }
       end
     else
       render json: { error: true, message: 'Email/PASSWORD HE BBEDEH' }, status: 400

@@ -3,13 +3,15 @@
 class RatingController < ApplicationController
   include RatingsHelper
 
+  # get pokemon/:id/rating
   def show
     pokemon = Pokemon.find params[:id]
     render json: { rating: pokemon.rating_sum, name: pokemon.name }
   end
 
+  # get /rating
   def top
-    render json: Rating.all_or_range(date_range).top_10
+    render json: Rating.all_or_range(date_range).top(amount)
   end
 
   private

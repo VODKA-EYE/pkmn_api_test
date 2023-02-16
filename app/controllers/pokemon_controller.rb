@@ -4,7 +4,7 @@ class PokemonController < BaseController
   include Paginatable
 
   def all
-    @pagy, pokemons = pagy(Pokemon.all)
+    @pagy, pokemons = pagy(Pokemon.all.order(:id))
     render json: { data: pokemons, meta: pagy_meta(@pagy) }
   end
 

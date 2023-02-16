@@ -6,7 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :ratings
-  
+
   def generate_access_token
     update(token: SecureRandom.hex)
   end

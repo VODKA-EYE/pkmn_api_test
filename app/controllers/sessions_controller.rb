@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class SessionsController < Devise::SessionsController
-  
   # overrided default  post users/sign_in
   def new
     if params[:email].present? && params[:password].present?

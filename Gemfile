@@ -57,3 +57,5 @@ gem 'has_scope', '~> 0.8.1'
 gem 'active_model_serializers', '~> 0.10.13'
 
 gem 'pagy', '~> 6.0'
+
+gem 'activerecord-import'

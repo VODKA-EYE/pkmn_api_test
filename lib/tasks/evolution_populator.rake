@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 namespace :pokemons do
-  desc 'Encrypts SCM and LDAP passwords in the database.'
+  desc 'Populates evolutions of pokemons'
   task populate_evolutions: :environment do
     array = [[], [], []]
-    CSV.foreach('evolutions.csv', headers: true).each do |row|
+    CSV.foreach('CSV_files/evolutions.csv', headers: true).each do |row|
       array[0] << row[0] if row[0]
       array[1] << row[1] if row[1]
       array[2] << row[2] if row[2]

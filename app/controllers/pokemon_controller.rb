@@ -5,7 +5,7 @@ class PokemonController < BaseController
 
   def all
     @pagy, pokemons = pagy(Pokemon.all.order(:id))
-    render json: { data: pokemons, meta: pagy_meta(@pagy) }
+    render json: pokemons, adapter: :json, each_serializer: PokemonSerializer, meta: pagy_meta(@pagy)
   end
 
   def show

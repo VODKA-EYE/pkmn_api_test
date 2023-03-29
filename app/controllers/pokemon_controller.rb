@@ -3,15 +3,21 @@
 class PokemonController < BaseController
   include Paginatable
 
+  # GET /pokemon
+  # displays all existing pokemons
   def all
     @pagy, pokemons = pagy(Pokemon.all.order(:id))
     render json: pokemons, adapter: :json, each_serializer: PokemonSerializer, meta: pagy_meta(@pagy)
   end
 
+  # GET /pokemon/:id
+  # show only 1 pokemon by his ID
   def show
     render json: Pokemon.find(params[:id])
   end
 
+  # POST /pokemon/:id/like
+  # give like to certain pokemon by current user
   def like
     rating = Rating.new(user_id: Current.user.id, pokemon_id: params[:id])
     if rating.save
@@ -21,6 +27,8 @@ class PokemonController < BaseController
     end
   end
 
+  # DELETE /pokemon/:id/like
+  # remove like of certain pokemon by current user
   def remove_like
     rating = Rating.find_by(user_id: Current.user.id, pokemon_id: params[:id])
     if rating&.delete

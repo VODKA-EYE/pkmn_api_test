@@ -9,6 +9,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 require 'csv'
 
+# takes .csv files of separated tables and adds to csv_hash
 csv_hash = {}
 csv_hash['abilities'] = CSV.parse File.read(Rails.root.join('CSV_files', 'Abilities.csv'))
 csv_hash['categories'] = CSV.parse File.read(Rails.root.join('CSV_files', 'Category.csv'))
@@ -16,6 +17,7 @@ csv_hash['colors'] = CSV.parse File.read(Rails.root.join('CSV_files', 'Color.csv
 csv_hash['egg_types'] = CSV.parse File.read(Rails.root.join('CSV_files', 'EggType.csv'))
 csv_hash['pokemon_types'] = CSV.parse File.read(Rails.root.join('CSV_files', 'Types.csv'))
 
+# iterations to add info from hash into database
 csv_hash.each do |k, v|
   klass = k.classify.constantize
   v.each do |row|
@@ -23,6 +25,7 @@ csv_hash.each do |k, v|
   end
 end
 
+# adds info from .csv file
 items = []
 CSV.foreach(Rails.root.join('CSV_files', 'Pokemons3nf.csv'), headers: true) do |row|
   items << row.to_h

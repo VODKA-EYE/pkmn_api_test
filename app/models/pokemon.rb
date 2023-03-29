@@ -12,6 +12,7 @@ class Pokemon < ApplicationRecord
   belongs_to :type2, class_name: 'PokemonType', optional: true
   belongs_to :category, optional: true
 
+  # summarize ratings count of object or zero
   def rating_sum
     ratings&.count || 0
   end

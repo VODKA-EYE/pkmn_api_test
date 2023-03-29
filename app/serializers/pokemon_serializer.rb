@@ -11,6 +11,7 @@ class PokemonSerializer < ActiveModel::Serializer
   belongs_to :type2
   belongs_to :category
 
+  # overrides attributes to provide all fields
   def attributes(*_args)
     object.attributes.symbolize_keys
   end

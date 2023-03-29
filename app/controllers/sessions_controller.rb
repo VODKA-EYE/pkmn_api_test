@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SessionsController < Devise::SessionsController
-  # overrided default  post users/sign_in
+  # overrided default  post users/sign_in, authorization
   def new
     if params[:email].present? && params[:password].present?
       # seaching email
@@ -12,9 +12,9 @@ class SessionsController < Devise::SessionsController
                status: 400
       end
       resource.generate_access_token
-      render json: { message: 'Success', token: resource.token }
+      render json: { message: 'Successfuly authorized ', token: resource.token }
     else
-      render json: { error: true, message: 'Email/PASSWORD HE BBEDEH' }, status: 400
+      render json: { error: true, message: 'Email/Password HE BBEDEH' }, status: 400
     end
   end
 end

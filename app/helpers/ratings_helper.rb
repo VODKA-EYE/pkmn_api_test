@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module RatingsHelper
+  # creates string data_range to evaluate to time object
   def date_range
     "1.#{params[:date_range]}.ago" if valid_date_range
   end

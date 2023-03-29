@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post 'pokemon/:id/like', to: 'pokemon#like'
   delete 'pokemon/:id/like', to: 'pokemon#remove_like'
   get 'pokemon/:id/rating', to: 'rating#show'
+  get 'pokemon/types', to: 'pokemon_type#all'
 
   delete 'users/log_out', to: 'users#log_out'
   get 'user', to: 'users#user_info'

@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class EggType < ApplicationRecord
+class Stat < ApplicationRecord
 end

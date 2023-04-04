@@ -7,13 +7,14 @@ class PokemonController < BaseController
   # displays all existing pokemons
   def all
     @pagy, pokemons = pagy(Pokemon.all.order(:id))
-    render json: pokemons, adapter: :json, each_serializer: PokemonSerializer, meta: pagy_meta(@pagy)
+    render json: pokemons, adapter: :json, each_serializer: PokemonsSerializer, meta: pagy_meta(@pagy)
   end
 
   # GET /pokemon/:id
   # show only 1 pokemon by his ID
   def show
-    render json: Pokemon.find(params[:id])
+    render json: Pokemon.find(params[:id]),
+           include: ['characteristic.abilities', 'characteristic.pokemon_types', 'stat']
   end
 
   # POST /pokemon/:id/like

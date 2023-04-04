@@ -14,7 +14,7 @@ namespace :pokemons do
     array.each_with_index do |e, i|
       e.each do |name|
         pokemons = Pokemon.where(og_name: name)
-        Pokemon.transaction { pokemons.each { |pok| pok.update(evolution_stage: i + 1) } } if pokemons
+        Pokemon.transaction { pokemons.each { |pok| pok&.characteristic&.update(evolution_stage: i + 1) } } if pokemons
       end
     end
   end

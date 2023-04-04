@@ -1,18 +1,12 @@
 # frozen_string_literal: true
 
 class PokemonSerializer < ActiveModel::Serializer
-  belongs_to :ability1
-  belongs_to :ability2
-  belongs_to :ability_hidden
-  belongs_to :color
-  belongs_to :egg_group1
-  belongs_to :egg_group2
-  belongs_to :type1
-  belongs_to :type2
-  belongs_to :category
+  has_one :characteristic
+  has_one :stat
 
   # overrides attributes to provide all fields
   def attributes(*_args)
-    object.attributes.symbolize_keys
+    hesh = object.attributes.except('created_at', 'updated_at', 'stats_id', 'characteristics_id')
+    hesh.symbolize_keys
   end
 end

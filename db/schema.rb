@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_326_173_405) do
+ActiveRecord::Schema[7.0].define(version: 20_230_330_183_348) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -22,19 +22,44 @@ ActiveRecord::Schema[7.0].define(version: 20_230_326_173_405) do
     t.datetime 'updated_at', null: false
   end
 
+  create_table 'abilities_characteristics', id: false, force: :cascade do |t|
+    t.bigint 'characteristic_id', null: false
+    t.bigint 'ability_id', null: false
+  end
+
   create_table 'categories', force: :cascade do |t|
     t.string 'name'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
 
-  create_table 'colors', force: :cascade do |t|
-    t.string 'name'
+  create_table 'characteristics', force: :cascade do |t|
+    t.integer 'generation'
+    t.float 'height'
+    t.float 'weight'
+    t.float 'gender_male'
+    t.float 'gender_female'
+    t.integer 'evolution_stage'
+    t.bigint 'category_id'
+    t.bigint 'ability_hidden_id'
+    t.bigint 'color_id'
+    t.bigint 'pokemon_types_id'
+    t.bigint 'pokemon_id'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.index ['ability_hidden_id'], name: 'index_characteristics_on_ability_hidden_id'
+    t.index ['category_id'], name: 'index_characteristics_on_category_id'
+    t.index ['color_id'], name: 'index_characteristics_on_color_id'
+    t.index ['pokemon_id'], name: 'index_characteristics_on_pokemon_id'
+    t.index ['pokemon_types_id'], name: 'index_characteristics_on_pokemon_types_id'
   end
 
-  create_table 'egg_types', force: :cascade do |t|
+  create_table 'characteristics_pokemon_types', id: false, force: :cascade do |t|
+    t.bigint 'characteristic_id', null: false
+    t.bigint 'pokemon_type_id', null: false
+  end
+
+  create_table 'colors', force: :cascade do |t|
     t.string 'name'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
@@ -50,45 +75,13 @@ ActiveRecord::Schema[7.0].define(version: 20_230_326_173_405) do
     t.string 'pokedex'
     t.string 'og_name'
     t.string 'name'
-    t.string 'generation'
-    t.string 'height'
-    t.string 'weight'
-    t.string 'gender_male'
-    t.string 'gender_female'
-    t.string 'gender_unknown'
-    t.string 'egg_steps'
-    t.string 'get_rate'
-    t.string 'base_experience'
-    t.string 'experience_type'
-    t.string 'hp'
-    t.string 'attack'
-    t.string 'defence'
-    t.string 'sp_attack'
-    t.string 'sp_defence'
-    t.string 'speed'
-    t.string 'total'
     t.string 'picture_url'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.integer 'evolution_stage'
-    t.bigint 'ability1_id'
-    t.bigint 'ability2_id'
-    t.bigint 'ability_hidden_id'
-    t.bigint 'color_id'
-    t.bigint 'egg_group1_id'
-    t.bigint 'egg_group2_id'
-    t.bigint 'type1_id'
-    t.bigint 'type2_id'
-    t.bigint 'category_id'
-    t.index ['ability1_id'], name: 'index_pokemons_on_ability1_id'
-    t.index ['ability2_id'], name: 'index_pokemons_on_ability2_id'
-    t.index ['ability_hidden_id'], name: 'index_pokemons_on_ability_hidden_id'
-    t.index ['category_id'], name: 'index_pokemons_on_category_id'
-    t.index ['color_id'], name: 'index_pokemons_on_color_id'
-    t.index ['egg_group1_id'], name: 'index_pokemons_on_egg_group1_id'
-    t.index ['egg_group2_id'], name: 'index_pokemons_on_egg_group2_id'
-    t.index ['type1_id'], name: 'index_pokemons_on_type1_id'
-    t.index ['type2_id'], name: 'index_pokemons_on_type2_id'
+    t.bigint 'stats_id'
+    t.bigint 'characteristics_id'
+    t.index ['characteristics_id'], name: 'index_pokemons_on_characteristics_id'
+    t.index ['stats_id'], name: 'index_pokemons_on_stats_id'
   end
 
   create_table 'ratings', force: :cascade do |t|
@@ -98,6 +91,20 @@ ActiveRecord::Schema[7.0].define(version: 20_230_326_173_405) do
     t.datetime 'updated_at', null: false
     t.index ['pokemon_id'], name: 'index_ratings_on_pokemon_id'
     t.index ['user_id'], name: 'index_ratings_on_user_id'
+  end
+
+  create_table 'stats', force: :cascade do |t|
+    t.integer 'hp'
+    t.integer 'attack'
+    t.integer 'defence'
+    t.integer 'sp_attack'
+    t.integer 'sp_defence'
+    t.integer 'speed'
+    t.integer 'total'
+    t.bigint 'pokemon_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['pokemon_id'], name: 'index_stats_on_pokemon_id'
   end
 
   create_table 'users', force: :cascade do |t|
@@ -113,15 +120,10 @@ ActiveRecord::Schema[7.0].define(version: 20_230_326_173_405) do
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
   end
 
-  add_foreign_key 'pokemons', 'abilities', column: 'ability1_id'
-  add_foreign_key 'pokemons', 'abilities', column: 'ability2_id'
-  add_foreign_key 'pokemons', 'abilities', column: 'ability_hidden_id'
-  add_foreign_key 'pokemons', 'categories'
-  add_foreign_key 'pokemons', 'colors'
-  add_foreign_key 'pokemons', 'egg_types', column: 'egg_group1_id'
-  add_foreign_key 'pokemons', 'egg_types', column: 'egg_group2_id'
-  add_foreign_key 'pokemons', 'pokemon_types', column: 'type1_id'
-  add_foreign_key 'pokemons', 'pokemon_types', column: 'type2_id'
+  add_foreign_key 'characteristics', 'abilities', column: 'ability_hidden_id'
+  add_foreign_key 'characteristics', 'categories'
+  add_foreign_key 'characteristics', 'colors'
+  add_foreign_key 'characteristics', 'pokemon_types', column: 'pokemon_types_id'
   add_foreign_key 'ratings', 'pokemons'
   add_foreign_key 'ratings', 'users'
 end

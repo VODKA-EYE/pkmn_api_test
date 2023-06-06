@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   # creates token in hex format for current user
   def generate_access_token
-    update(token: SecureRandom.hex)
+    update(token: SecureRandom.hex) until token
   end
 
   # removes token from current user

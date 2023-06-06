@@ -16,4 +16,6 @@ Rails.application.routes.draw do
   get 'user', to: 'users#user_info'
 
   get 'rating', to: 'rating#top'
+
+  get 'random', to: 'pokemon#random'
 end

@@ -59,3 +59,5 @@ gem 'active_model_serializers', '~> 0.10.13'
 gem 'pagy', '~> 6.0'
 
 gem 'activerecord-import'
+
+gem 'whenever', '~> 1.0.0'

@@ -38,4 +38,10 @@ class PokemonController < BaseController
       render json: { error: true, message: 'Never existed' }, status: 404
     end
   end
+
+  #
+  # set random pokemon of the day
+  def random
+    render json: PokemonRandom.get
+  end
 end

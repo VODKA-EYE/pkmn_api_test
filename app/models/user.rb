@@ -7,6 +7,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :ratings
 
+  enum :role, %i[user admin]
+
   # creates token in hex format for current user
   def generate_access_token
     update(token: SecureRandom.hex) until token

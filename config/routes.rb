@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   get 'rating', to: 'rating#top'
 
   get 'random', to: 'pokemon#random'
+
+  resources :pokemon, controller: :pokemon, only: [:create, :update, :destroy]
 end

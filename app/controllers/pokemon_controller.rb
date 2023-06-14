@@ -2,6 +2,7 @@
 
 class PokemonController < BaseController
   include Paginatable
+  before_action :find_pokemon, only: [:update, :destroy]
 
   # GET /pokemon
   # displays all existing pokemons
@@ -43,5 +44,36 @@ class PokemonController < BaseController
   # set random pokemon of the day
   def random
     render json: PokemonRandom.get
+  end
+
+  def create
+    if pokemon_params.present?
+    pokemon = Pokemon.new(pokemon_params)
+    if pokemon.save
+        render json: { message: 'Pokemon created' }
+      else
+        render json: { error: true, message: pokemon.errors.full_messages }
+      end
+    else
+      render json: { error: true, message: 'empty field' }, status: 400
+    end
+  end
+
+  def destroy
+    @pokemon.delete
+  end
+
+  def update
+    @pokemon.update(pokemon_params)
+  end
+
+  private 
+  def pokemon_params
+    params.require(:pokemon).permit(:pokedex, :og_name, :name, :picture_url)
+  end
+
+  def find_pokemon
+    @pokemon ||= Pokemon.find_by_id(params[:id]) 
+    render json: {error: true, message: 'Pokemon not found'} unless @pokemon
   end
 end

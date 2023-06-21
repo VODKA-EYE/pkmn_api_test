@@ -12,6 +12,7 @@ class UsersController < BaseController
 
   # shows all info about current user
   def user_info
-    render json: Current.user
+    users = User.all.order(:id)
+    render json: users
   end
 end

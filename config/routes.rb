@@ -13,11 +13,14 @@ Rails.application.routes.draw do
   get 'pokemon/:id/rating', to: 'rating#show'
 
   delete 'users/log_out', to: 'users#log_out'
-  get 'user', to: 'users#user_info'
+  get 'users', to: 'users#user_info'
 
   get 'rating', to: 'rating#top'
 
   get 'random', to: 'pokemon#random'
 
-  resources :pokemon, controller: :pokemon, only: [:create, :update, :destroy]
+  get 'question', to: 'quiz_question#get_question'
+  get 'question_result', to: 'quiz_question#get_result'
+
+  resources :pokemon, controller: :pokemon, only: %i[create update destroy]
 end

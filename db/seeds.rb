@@ -15,6 +15,7 @@ csv_hash['abilities'] = CSV.parse File.read(Rails.root.join('CSV_files', 'Abilit
 csv_hash['categories'] = CSV.parse File.read(Rails.root.join('CSV_files', 'Category.csv'))
 csv_hash['colors'] = CSV.parse File.read(Rails.root.join('CSV_files', 'Color.csv'))
 csv_hash['pokemon_types'] = CSV.parse File.read(Rails.root.join('CSV_files', 'Types.csv'))
+csv_hash['quiz_questions'] = CSV.parse File.read(Rails.root.join('CSV_files', 'questions.csv'))
 
 # iterations to add info from hash into database
 csv_hash.each do |k, v|

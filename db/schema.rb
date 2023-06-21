@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_606_192_121) do
+ActiveRecord::Schema[7.0].define(version: 20_230_621_182_936) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -91,6 +91,10 @@ ActiveRecord::Schema[7.0].define(version: 20_230_606_192_121) do
     t.index ['stats_id'], name: 'index_pokemons_on_stats_id'
   end
 
+  create_table 'quiz_questions', force: :cascade do |t|
+    t.string 'name'
+  end
+
   create_table 'ratings', force: :cascade do |t|
     t.bigint 'user_id', null: false
     t.bigint 'pokemon_id', null: false
@@ -124,7 +128,11 @@ ActiveRecord::Schema[7.0].define(version: 20_230_606_192_121) do
     t.datetime 'updated_at', null: false
     t.text 'token'
     t.integer 'role', default: 0
+    t.string 'login'
+    t.datetime 'last_entry'
+    t.bigint 'my_pokemon_id'
     t.index ['email'], name: 'index_users_on_email', unique: true
+    t.index ['my_pokemon_id'], name: 'index_users_on_my_pokemon_id'
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
   end
 
@@ -134,4 +142,5 @@ ActiveRecord::Schema[7.0].define(version: 20_230_606_192_121) do
   add_foreign_key 'characteristics', 'pokemon_types', column: 'pokemon_types_id'
   add_foreign_key 'ratings', 'pokemons'
   add_foreign_key 'ratings', 'users'
+  add_foreign_key 'users', 'pokemons', column: 'my_pokemon_id'
 end

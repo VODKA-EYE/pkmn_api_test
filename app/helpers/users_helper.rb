@@ -7,4 +7,8 @@ module UsersHelper
 
     Current.user = User.find_by(token: access_token)
   end
+
+  def check_admin_role
+    head 401 unless Current.user.admin?
+  end
 end

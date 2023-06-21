@@ -3,9 +3,9 @@
 class SessionsController < Devise::SessionsController
   # overrided default  post users/sign_in, authorization
   def new
-    if params[:email].present? && params[:password].present?
-      # seaching email
-      resource = User.find_for_database_authentication(email: params.require(:email))
+    if params[:login].present? && params[:password].present?
+      # seaching login
+      resource = User.find_for_database_authentication(login: params.require(:login))
       # if resource null/nil then error
       unless resource&.valid_password?(params[:password])
         render json: { error: true, message: 'Ne sovpadayet' },
@@ -14,7 +14,7 @@ class SessionsController < Devise::SessionsController
       resource.generate_access_token
       render json: { message: 'Successfuly authorized ', token: resource.token }
     else
-      render json: { error: true, message: 'Email/Password HE BBEDEH' }, status: 400
+      render json: { error: true, message: 'Login/Password HE BBEDEH' }, status: 400
     end
   end
 end

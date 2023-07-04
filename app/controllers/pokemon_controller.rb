@@ -71,7 +71,15 @@ class PokemonController < BaseController
   private
 
   def pokemon_params
-    params.require(:pokemon).permit(:pokedex, :og_name, :name, :picture_url)
+    params.require(:pokemon).permit(:pokedex, :og_name, :name, :picture_url).merge(stats_attributes: [stats_params], characteristics_attributes: [characteristics_params])
+  end
+
+  def stats_params
+    params.require(:stat).permit(:hp, :attack, :defence, :sp_attack, :sp_defence, :speed, :total)
+  end
+
+  def characteristics_params
+    params.require(:characteristic).permit(:generation, :height, :weight, :gender_male, :gender_female, :evolution_stage, :category, :ability_hidden, :color, :pokemon_type)
   end
 
   def find_pokemon

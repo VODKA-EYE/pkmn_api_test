@@ -58,3 +58,20 @@ sql = <<~EOS
 EOS
 
 ActiveRecord::Base.connection.execute(sql)
+
+question_hash = {
+  "1": Pokemon.where(name: %w[Meowth Jigglypuff Nidoqueen Charizard]).pluck(:id),
+  "2": Pokemon.where(name: %w[Meowth Charizard]).pluck(:id),
+  "3": Pokemon.where(name: %w[Meowth Jigglypuff Pikachu Charizard]).pluck(:id),
+  "4": Pokemon.where(name: %w[Squirtle Pidgey Charizard]).pluck(:id),
+  "5": Pokemon.where(name: %w[Squirtle Pidgey Nidoqueen Pikachu Charizard]).pluck(:id),
+  "6": Pokemon.where(name: %w[Jigglypuff Charizard]).pluck(:id),
+  "7": Pokemon.where(name: %w[Meowth Jigglypuff Charizard]).pluck(:id),
+  "8": Pokemon.where(name: %w[Jigglypuff Nidoqueen Charizard]).pluck(:id),
+  "9": Pokemon.where(name: %w[Jigglypuff Charizard]).pluck(:id),
+  "10": Pokemon.where(name: %w[Meowth Squirtle Eevee Charizard]).pluck(:id)
+}
+
+QuizQuestion.all.each do |row|
+  row.update(pokemon_ids: question_hash[:"#{row.id}"])
+end

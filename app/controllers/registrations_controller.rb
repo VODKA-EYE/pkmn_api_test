@@ -7,6 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     if params[:login].present? && params[:password_confirmation] == params[:password] && params[:password].present?
       user = User.new(login: params[:login], password: params[:password])
+      user.role = 1 unless User.any?
       if user.save
         render json: { message: 'Account created' }
       else

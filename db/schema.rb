@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_621_182_936) do
+ActiveRecord::Schema[7.0].define(version: 20_230_704_205_641) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -93,6 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 20_230_621_182_936) do
 
   create_table 'quiz_questions', force: :cascade do |t|
     t.string 'name'
+    t.integer 'pokemon_ids', default: [], array: true
   end
 
   create_table 'ratings', force: :cascade do |t|
@@ -131,7 +132,7 @@ ActiveRecord::Schema[7.0].define(version: 20_230_621_182_936) do
     t.string 'login'
     t.datetime 'last_entry'
     t.bigint 'my_pokemon_id'
-    t.index ['email'], name: 'index_users_on_email', unique: true
+    t.index ['login'], name: 'index_users_on_login', unique: true
     t.index ['my_pokemon_id'], name: 'index_users_on_my_pokemon_id'
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
   end

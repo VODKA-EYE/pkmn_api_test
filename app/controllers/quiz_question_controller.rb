@@ -5,5 +5,7 @@ class QuizQuestionController < BaseController
     render json: QuizQuestion.find(params[:id])
   end
 
-  def get_result; end
+  def result
+    render json: QuizService.new(params['questions']).result
+  end
 end

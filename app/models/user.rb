@@ -6,7 +6,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :ratings
-  has_one :my_pokemon, class_name: :Pokemon
 
   enum :role, %i[user admin]
 

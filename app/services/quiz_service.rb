@@ -6,6 +6,12 @@ class QuizService
   end
 
   def result
+    pokemon = your_pokemon
+    save_pokemon pokemon.id
+    pokemon
+  end
+
+  def your_pokemon
     return Pokemon.find_by_name('Beedrill') if @questions.empty?
 
     array = []
@@ -13,7 +19,6 @@ class QuizService
       array.concat row.pokemon_ids
     end
     id = array.tally.max_by { |_k, v| v }[0]
-    save_pokemon id
     Pokemon.find id
   end
 

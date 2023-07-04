@@ -75,3 +75,11 @@ sql = <<~EOS
 EOS
 
 ActiveRecord::Base.connection.execute(sql)
+
+# for heroku
+# \COPY abilities_characteristics(characteristic_id, ability_id)
+# FROM 'CSV_files/New/abilities_stats.csv'
+# DELIMITER ',';
+# \COPY characteristics_pokemon_types(characteristic_id, pokemon_type_id)
+# FROM 'CSV_files/New/TypeOfPokemonToCharacteristics.csv'
+# DELIMITER ',';

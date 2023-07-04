@@ -48,17 +48,6 @@ Pokemon.import(items)
 
 Rake::Task['pokemons:populate_evolutions'].invoke
 
-sql = <<~EOS
-  COPY abilities_characteristics(characteristic_id, ability_id)
-  FROM '#{Rails.root.join('CSV_files/New', 'abilities_stats.csv')}'
-  DELIMITER ',';
-  COPY characteristics_pokemon_types(characteristic_id, pokemon_type_id)
-  FROM '#{Rails.root.join('CSV_files/New', 'TypeOfPokemonToCharacteristics.csv')}'
-  DELIMITER ',';
-EOS
-
-ActiveRecord::Base.connection.execute(sql)
-
 question_hash = {
   "1": Pokemon.where(name: %w[Meowth Jigglypuff Nidoqueen Charizard]).pluck(:id),
   "2": Pokemon.where(name: %w[Meowth Charizard]).pluck(:id),
@@ -75,3 +64,14 @@ question_hash = {
 QuizQuestion.all.each do |row|
   row.update(pokemon_ids: question_hash[:"#{row.id}"])
 end
+
+sql = <<~EOS
+  COPY abilities_characteristics(characteristic_id, ability_id)
+  FROM '#{Rails.root.join('CSV_files/New', 'abilities_stats.csv')}'
+  DELIMITER ',';
+  COPY characteristics_pokemon_types(characteristic_id, pokemon_type_id)
+  FROM '#{Rails.root.join('CSV_files/New', 'TypeOfPokemonToCharacteristics.csv')}'
+  DELIMITER ',';
+EOS
+
+ActiveRecord::Base.connection.execute(sql)

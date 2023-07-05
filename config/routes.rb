@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get 'random', to: 'pokemon#random'
 
   get 'quiz/question', to: 'quiz_question#get_question'
-  get 'quiz/result', to: 'quiz_question#result'
+  post 'quiz/result', to: 'quiz_question#result'
 
   resources :pokemon, controller: :pokemon, only: %i[create update destroy]
 end

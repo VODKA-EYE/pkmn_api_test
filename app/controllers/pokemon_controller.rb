@@ -52,7 +52,7 @@ class PokemonController < BaseController
       if PokemonService.new(pokemon_params, stats_params, characteristics_params).create
         render json: { message: 'Pokemon created' }
       else
-        render json: { error: true, message: pokemon.errors.full_messages }
+        render json: { error: true, message: 'Something happend' }
       end
     else
       render json: { error: true, message: 'Empty field' }, status: 400
@@ -64,7 +64,11 @@ class PokemonController < BaseController
   end
 
   def update
-    @pokemon.update(pokemon_params)
+    if PokemonService.new(pokemon_params, stats_params, characteristics_params, params[:id]).update
+      render json: { message: 'Pokemon updated' }
+    else
+      render json: { error: true, message: 'idk' }
+    end
   end
 
   private

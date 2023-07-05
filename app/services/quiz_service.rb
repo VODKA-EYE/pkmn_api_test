@@ -18,7 +18,7 @@ class QuizService
     @questions.each do |row|
       array.concat row.pokemon_ids
     end
-    id = array.tally.max_by { |_k, v| v }[0]
+    id = array.tally.sort_by { |_k, v| v }[-1].first
     Pokemon.find id
   end
 

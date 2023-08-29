@@ -49,12 +49,11 @@ class PokemonController < BaseController
 
   def create
     if pokemon_params.present?
-      pokemon = Pokemon.new(pokemon_params)
-      if pokemon.save
+      if PokemonService.new(pokemon_params, stats_params, characteristics_params).create
         render json: { message: 'Pokemon created' }
       else
-        render json: { error: true, message: pokemon.errors.full_messages }
-        end
+        render json: { error: true, message: 'Something happend' }
+      end
     else
       render json: { error: true, message: 'Empty field' }, status: 400
     end
@@ -65,13 +64,17 @@ class PokemonController < BaseController
   end
 
   def update
-    @pokemon.update(pokemon_params)
+    if PokemonService.new(pokemon_params, stats_params, characteristics_params, params[:id]).update
+      render json: { message: 'Pokemon updated' }
+    else
+      render json: { error: true, message: 'idk' }
+    end
   end
 
   private
 
   def pokemon_params
-    params.require(:pokemon).permit(:pokedex, :og_name, :name, :picture_url).merge(stats_attributes: [stats_params], characteristics_attributes: [characteristics_params])
+    params.require(:pokemon).permit(:pokedex, :og_name, :name, :picture_url)
   end
 
   def stats_params
@@ -79,7 +82,8 @@ class PokemonController < BaseController
   end
 
   def characteristics_params
-    params.require(:characteristic).permit(:generation, :height, :weight, :gender_male, :gender_female, :evolution_stage, :category, :ability_hidden, :color, :pokemon_type)
+    params.require(:characteristic).permit(:generation, :height, :weight, :gender_male, :gender_female,
+                                           :evolution_stage, :category, :ability_hidden, :color, :pokemon_type)
   end
 
   def find_pokemon

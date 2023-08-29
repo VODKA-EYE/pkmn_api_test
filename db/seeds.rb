@@ -49,16 +49,16 @@ Pokemon.import(items)
 Rake::Task['pokemons:populate_evolutions'].invoke
 
 question_hash = {
-  "1": Pokemon.where(name: %w[Meowth Jigglypuff Nidoqueen Charizard]).pluck(:id),
-  "2": Pokemon.where(name: %w[Meowth Charizard]).pluck(:id),
-  "3": Pokemon.where(name: %w[Meowth Jigglypuff Pikachu Charizard]).pluck(:id),
-  "4": Pokemon.where(name: %w[Squirtle Pidgey Charizard]).pluck(:id),
-  "5": Pokemon.where(name: %w[Squirtle Pidgey Nidoqueen Pikachu Charizard]).pluck(:id),
-  "6": Pokemon.where(name: %w[Jigglypuff Charizard]).pluck(:id),
-  "7": Pokemon.where(name: %w[Meowth Jigglypuff Charizard]).pluck(:id),
-  "8": Pokemon.where(name: %w[Jigglypuff Nidoqueen Charizard]).pluck(:id),
-  "9": Pokemon.where(name: %w[Jigglypuff Charizard]).pluck(:id),
-  "10": Pokemon.where(name: %w[Meowth Squirtle Eevee Charizard]).pluck(:id)
+  "1": Pokemon.where(name: %w[Meowth Jigglypuff Nidoqueen Charmander Vaporeon]).pluck(:id),
+  "2": Pokemon.where(name: %w[Meowth Charmander Vulpix]).pluck(:id),
+  "3": Pokemon.where(name: %w[Meowth Jigglypuff Pikachu Charmander Vaporeon]).pluck(:id),
+  "4": Pokemon.where(name: %w[Squirtle Pidgey Charmander Vulpix]).pluck(:id),
+  "5": Pokemon.where(name: %w[Squirtle Pidgey Nidoqueen Pikachu Charmander Vaporeon]).pluck(:id),
+  "6": Pokemon.where(name: %w[Jigglypuff Charmander Vulpix]).pluck(:id),
+  "7": Pokemon.where(name: %w[Meowth Jigglypuff Charmander Vaporeon]).pluck(:id),
+  "8": Pokemon.where(name: %w[Jigglypuff Nidoqueen Charmander Vulpix]).pluck(:id),
+  "9": Pokemon.where(name: %w[Jigglypuff Charmander Vaporeon]).pluck(:id),
+  "10": Pokemon.where(name: %w[Meowth Squirtle Eevee Charmander Vulpix]).pluck(:id)
 }
 
 QuizQuestion.all.each do |row|

@@ -49,16 +49,16 @@ Pokemon.import(items)
 Rake::Task['pokemons:populate_evolutions'].invoke
 
 question_hash = {
-  "1": Pokemon.where(name: %w[Meowth Jigglypuff Nidoqueen Charmander Vaporeon]).pluck(:id),
-  "2": Pokemon.where(name: %w[Meowth Charmander Vulpix]).pluck(:id),
-  "3": Pokemon.where(name: %w[Meowth Jigglypuff Pikachu Charmander Vaporeon]).pluck(:id),
-  "4": Pokemon.where(name: %w[Squirtle Pidgey Charmander Vulpix]).pluck(:id),
-  "5": Pokemon.where(name: %w[Squirtle Pidgey Nidoqueen Pikachu Charmander Vaporeon]).pluck(:id),
-  "6": Pokemon.where(name: %w[Jigglypuff Charmander Vulpix]).pluck(:id),
-  "7": Pokemon.where(name: %w[Meowth Jigglypuff Charmander Vaporeon]).pluck(:id),
-  "8": Pokemon.where(name: %w[Jigglypuff Nidoqueen Charmander Vulpix]).pluck(:id),
-  "9": Pokemon.where(name: %w[Jigglypuff Charmander Vaporeon]).pluck(:id),
-  "10": Pokemon.where(name: %w[Meowth Squirtle Eevee Charmander Vulpix]).pluck(:id)
+  "1": Pokemon.where(name: %w[Charmander Squirtle Pidgey Meowth Growlithe Tauros ]).pluck(:id),
+  "2": Pokemon.where(name: %w[Charmander Butterfree Pidgey Vulpix Diglett Meowth Cubone Tauros ]).pluck(:id),
+  "3": Pokemon.where(name: %w[Charmander Squirtle Pidgey Pikachu Vulpix Jigglypuff Meowth Growlithe Slowpoke ]).pluck(:id),
+  "4": Pokemon.where(name: %w[Butterfree Pidgey  Jigglypuff Diglett Psyduck Growlithe Slowpoke ]).pluck(:id),
+  "5": Pokemon.where(name: %w[Charmander Squirtle Pidgey Pikachu Vulpix Meowth Psyduck Cubone ]).pluck(:id),
+  "6": Pokemon.where(name: %w[Butterfree Pidgey Rattata Jigglypuff Diglett Psyduck Slowpoke Cubone ]).pluck(:id),
+  "7": Pokemon.where(name: %w[Squirtle Pidgey Rattata Pikachu Jigglypuff Psyduck Growlithe Tauros ]).pluck(:id),
+  "8": Pokemon.where(name: %w[Charmander Butterfree Rattata Pikachu Vulpix Diglett Meowth Growlithe Slowpoke Cubone Tauros ]).pluck(:id),
+  "9": Pokemon.where(name: %w[Charmander Squirtle Rattata Vulpix Diglett Cubone ]).pluck(:id),
+  "10": Pokemon.where(name: %w[Charmander Butterfree Rattata Pikachu Jigglypuff Psyduck Slowpoke Tauros ]).pluck(:id)
 }
 
 QuizQuestion.all.each do |row|
